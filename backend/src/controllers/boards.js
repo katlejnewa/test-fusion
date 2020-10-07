@@ -1,5 +1,5 @@
 module.exports = {
-  getBoards(req, res) {
+  async getBoards(req, res) {
     res.send('getBoards');
   },
   addBoard(req, res) {
