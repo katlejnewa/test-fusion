@@ -1,12 +1,26 @@
+const HttpStatus = require('http-status-codes');
+const cardServices = require('../services/cardServices');
+const { badRequest } = require('./http-error');
+
 module.exports = {
-  getCards(req, res) {
-    res.send('getColumns');
+  async addOneCard(req, res) {
+    const { name, columnId } = req.body;
+    if (!name || !name.trim()) {
+      throw badRequest({ name: 'Данное поле не может быть пустым' });
+    }
+    if (!columnId || !columnId.trim()) {
+      throw badRequest({ boardId: 'Данное поле не может быть пустым' });
+    }
+    const card = await cardServices.addCard(name, columnId);
+    res.status(HttpStatus.OK).send(card);
   },
-  addCard(req, res) {
-    res.send('addOneColumn');
-  },
-  deleteCard(req, res) {
-    const { id } = req;
-    res.send(`deleteColumn ${id}`);
+
+  async deleteCard(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      throw badRequest({ id: 'Данное поле не может быть пустым' });
+    }
+    await cardServices.deleteCard(id);
+    res.status(HttpStatus.OK).send('OK');
   },
 };
