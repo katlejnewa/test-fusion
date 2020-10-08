@@ -5,7 +5,7 @@ module.exports = {
     return Boards.findAll();
   },
   getBoard(id) {
-    return Boards.findOne({
+    return  Boards.findOne({
       where: { id },
       include: [
         {

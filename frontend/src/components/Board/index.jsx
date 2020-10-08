@@ -1,13 +1,16 @@
 import React, {memo, useState} from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import Column from '../Column';
-import Modal from '../Modal';
+import actions from '../../store/actions/boardsActions';
+
+const { deleteBoardRequest } = actions;
 
 
 const useStyles = makeStyles({
@@ -19,53 +22,38 @@ const useStyles = makeStyles({
     },
 });
 
-const Board = ({ title, id }) => {
+const Board = ({ name, id }) => {
     const classes = useStyles();
-    const [ isVisible, setIsVisible ] = useState(false);
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     const goToBoardPage = () => {
-        //TODO: go to page id
+        history.push(`/board/${id}`);
     }
 
-    const deleteBoard = () => {
-        /*
-     *
-     *
-     * dispatch(deleteBoard(id));
-     * */
-    };
-
-    const addColumn = () => {
-
+    const deleteBoard = (e) => {
+        e.stopPropagation();
+        dispatch(deleteBoardRequest(id))
     };
 
     return (
         <Card className={classes.root} onClick={goToBoardPage}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {title}
+                    {name}
                 </Typography>
-                {[].map( item => {
-                    <Column
-                        key={item.id}
-                        cards={item.cards}
-                        title={item.title}
-                        id={item.id}
-                    />
-                })}
             </CardContent>
             <CardActions>
-                <Button onClick={deleteBoard} size="small">Удалить</Button>
-                <Button onClick={() => setIsVisible(true) } size="small">Добавить колонку</Button>
+                <Button onClick={(e) => deleteBoard(e)}>Удалить</Button>
             </CardActions>
-            <Modal isVisible={isVisible} saveData={addColumn} handleClose={()=> setIsVisible(false)}/>
         </Card>
     );
 
 };
 
 Board.propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
+    id: PropTypes.number.isRequired
 };
 
 Board.defaultProps = {

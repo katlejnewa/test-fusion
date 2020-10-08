@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 const indexRouter = require('./routes/index');
 
 const app = express();
@@ -16,6 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
+  next();
+});
+
+app.use(cors({ origin: '*' }));
 
 app.use('/api/v1', indexRouter);
 

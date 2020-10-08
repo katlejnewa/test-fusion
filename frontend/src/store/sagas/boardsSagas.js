@@ -31,8 +31,6 @@ const HANDLERS = {
                 headers: { 'content-type': 'application/json' },
             });
             yield put(getBoardsSuccess(data));
-
-
         } catch (e) {
             yield put(getBoardsFailure(e));
         }
@@ -41,12 +39,11 @@ const HANDLERS = {
         try {
             const { data } = yield call(axios, {
                 method: 'get',
-                url: `${apiHost}boadrs/${action.payload}`,
+                url: `${apiHost}boards/${action.payload}`,
                 headers: { 'content-type': 'application/json' },
             });
-            yield put(getBoardSuccess({ user: data }));
+            yield put(getBoardSuccess(data));
         } catch (e) {
-
             yield put(getBoardFailure(e));
         }
     },
@@ -54,7 +51,7 @@ const HANDLERS = {
         try {
             yield call(axios, {
                 method: 'post',
-                url: `${apiHost}boadrs/`,
+                url: `${apiHost}boards/`,
                 headers: { 'content-type': 'application/json' },
                 data: action.payload,
             });
@@ -67,7 +64,7 @@ const HANDLERS = {
         try {
            yield call(axios, {
                 method: 'delete',
-                url: `${apiHost}boadrs/${action.payload}`,
+                url: `${apiHost}boards/${action.payload}`,
                 headers: { 'content-type': 'application/json' },
             });
             yield put(getBoardsRequest());
@@ -77,7 +74,8 @@ const HANDLERS = {
     },
 };
 
-export default function* loginSaga() {
+export default function* boardsSagas() {
+
     for (const key in HANDLERS) {
         if (Object.prototype.hasOwnProperty.call(HANDLERS, key)) {
             yield takeEvery(key, HANDLERS[key]);

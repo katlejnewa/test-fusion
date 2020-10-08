@@ -8,6 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       boardId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Boards',
@@ -15,6 +16,7 @@ module.exports = {
         },
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -23,6 +25,9 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
         type: Sequelize.DATE,
       },
     });

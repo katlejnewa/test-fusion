@@ -36,7 +36,7 @@ const HANDLERS = {
         try {
             yield call(axios, {
                 method: 'delete',
-                url: `${apiHost}cards/${action.payload}`,
+                url: `${apiHost}cards/${action.payload.id}`,
                 headers: { 'content-type': 'application/json' },
             });
             yield put(getBoardRequest(action.payload.boardId));
@@ -46,7 +46,7 @@ const HANDLERS = {
     },
 };
 
-export default function* loginSaga() {
+export default function* cardsSagas() {
     for (const key in HANDLERS) {
         if (Object.prototype.hasOwnProperty.call(HANDLERS, key)) {
             yield takeEvery(key, HANDLERS[key]);

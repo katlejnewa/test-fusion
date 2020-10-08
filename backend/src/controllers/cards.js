@@ -8,7 +8,7 @@ module.exports = {
     if (!name || !name.trim()) {
       throw badRequest({ name: 'Данное поле не может быть пустым' });
     }
-    if (!columnId || !columnId.trim()) {
+    if (!columnId) {
       throw badRequest({ boardId: 'Данное поле не может быть пустым' });
     }
     const card = await cardServices.addCard(name, columnId);

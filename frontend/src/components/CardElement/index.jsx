@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch} from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
+import actions from '../../store/actions/cardsActions';
+
+const { deleteCardRequest } = actions;
 
 const useStyles = makeStyles({
     root: {
@@ -17,22 +21,19 @@ const useStyles = makeStyles({
     },
 });
 
-const Card = ({ title, id }) => {
+const CardElement = ({ name, id, boardId }) => {
     const classes = useStyles();
-    const deleteCard = () => {
-        /*
-        *
-        *
-        * dispatch(deleteCard(id));
-        * */
-    }
+    const dispatch = useDispatch();
 
+    const deleteCard = () => {
+        dispatch(deleteCardRequest({id, boardId}));
+    }
 
     return (
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {title}
+                    {name}
                 </Typography>
             </CardContent>
             <CardActions>
@@ -43,12 +44,13 @@ const Card = ({ title, id }) => {
 
 };
 
-Card.propTypes = {
-    title: PropTypes.string,
+CardElement.propTypes = {
+    name: PropTypes.string,
     id: PropTypes.number.isRequired,
+    boardId: PropTypes.number.isRequired,
 };
 
-Card.defaultProps = {
-    title: ''
+CardElement.defaultProps = {
+    name: ''
 };
-export default memo(Card);
+export default memo(CardElement);

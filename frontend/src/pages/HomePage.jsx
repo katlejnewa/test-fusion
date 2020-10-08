@@ -9,13 +9,13 @@ const { getBoardsRequest, addBoardRequest } = actions;
 
 const HomePage = () => {
     const [ isVisible, setIsVisible ] = useState(false);
-
     const dispatch = useDispatch();
-    const boards = useSelector(state => state.boardsReducers.boards);
 
     useEffect(() => {
         dispatch(getBoardsRequest());
     },[]);
+
+    const boards = useSelector(state => state.boardsReducers.boards);
 
     const addBoard = (name) => {
         setIsVisible(false);
@@ -24,14 +24,18 @@ const HomePage = () => {
 
     return(
         <div>
-            <Button onClick={() => setIsVisible(true)} size="small">Добавить доску</Button>
-                {boards.map( item =>
-                <Board
-                    title={item.title}
-                    id={item.id}
-                    key={item.id}
-                />)
-                }
+            <div className="btn-wrapper">
+                <Button onClick={() => setIsVisible(true)} size="small">Добавить доску</Button>
+            </div>
+               <div className="boards">
+                   {boards.map( item =>
+                       <Board
+                           name={item.name}
+                           id={item.id}
+                           key={item.id}
+                       />)
+                   }
+               </div>
             <Modal isVisible={isVisible} saveData={addBoard} handleClose={() => setIsVisible(false)}/>
         </div>
     )

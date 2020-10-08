@@ -5,8 +5,8 @@ import boardsSagas from './boardsSagas';
 
 export default function* staticSagas() {
     yield all([
-        columnsSagas,
-        cardsSagas,
-        boardsSagas
+        columnsSagas(),
+        cardsSagas(),
+        boardsSagas()
     ]);
 }

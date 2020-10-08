@@ -36,3 +36,56 @@
     transform: rotate(360deg);
   }
 }
+
+.boards {
+  width: 90%;
+  margin: 15px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.boards * {
+  width: 20%;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+.boards>*:hover {
+  cursor: pointer;
+}
+
+.btn-wrapper {
+  margin: 20px auto;
+  width: 200px;
+}
+
+.not-found {
+  margin: 30px auto;
+  text-align: center;
+  font-size: 20px;
+}
+
+.board-page {
+  padding: 20px;
+}
+
+.columns {
+  min-height: 300px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+
+.columns>*{
+  margin-right: 15px;
+}
+
+.cards>*{
+  margin-top: 15px;
+}
+
+.MuiPaper-root.MuiCard-root.MuiPaper-elevation1.MuiPaper-rounded{
+  min-height: 100px;
+  height: fit-content;}

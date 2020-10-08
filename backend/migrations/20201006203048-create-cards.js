@@ -8,9 +8,11 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       columnId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Columns',
@@ -23,6 +25,9 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
         type: Sequelize.DATE,
       },
     });

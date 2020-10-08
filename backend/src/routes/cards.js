@@ -5,7 +5,7 @@ const { wrapController } = require('../helpers/catchError');
 const router = new express.Router();
 const ctrl = wrapController(cardsController);
 
-router.post('/', ctrl.addCard);
+router.post('/', ctrl.addOneCard);
 router.delete('/:id', ctrl.deleteCard);
 
 module.exports = router;

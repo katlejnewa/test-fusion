@@ -28,7 +28,7 @@ const getBoardsRequestHandle = (state) => ({
 const getBoardsSuccessHandle = (state, action) => ({
     ...state,
     isLoading: false,
-    boards: action.payload.boards,
+    boards: action.payload,
     error: null
 });
 const getBoardsFailureHandle = (state, action) => ({
@@ -45,23 +45,13 @@ const getBoardRequestHandle = (state) => ({
 const getBoardSuccessHandle = (state, action) => ({
     ...state,
     isLoading: false,
-    board: action.payload.board,
+    board: action.payload,
     error: null,
 });
 const getBoardFailureHandle = (state, action) => ({
     ...state,
     isLoading: false,
     board: null,
-    error: action.payload.error,
-});
-const addBoardFailure = (state, action) => ({
-    ...state,
-    isLoading: false,
-    error: action.payload.error,
-});
-const addBoardFailure = (state, action) => ({
-    ...state,
-    isLoading: false,
     error: action.payload.error,
 });
 

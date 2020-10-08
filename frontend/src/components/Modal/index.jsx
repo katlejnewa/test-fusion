@@ -6,8 +6,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
 
-const Modal = ({ isVisible, saveData, handleClose, text }) => {
+const Modal = ({ isVisible, saveData, handleClose }) => {
     const [value, setValue] = useState('')
     const [error, setError] = useState(false);
     const sendData = () => {
@@ -21,17 +22,14 @@ const Modal = ({ isVisible, saveData, handleClose, text }) => {
 
         if(!valueError){
             saveData(value)
+            setValue('')
         }
-
     }
 
     return (
         <Dialog open={isVisible} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Добавить</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    {text}
-                </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -50,4 +48,16 @@ const Modal = ({ isVisible, saveData, handleClose, text }) => {
         </Dialog>
     );
 }
+
+Modal.propTypes = {
+    isVisible: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    boardId: PropTypes.number.isRequired,
+    saveData: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+};
+
+Modal.defaultProps = {
+    isVisible: false,
+};
 export default memo(Modal);
